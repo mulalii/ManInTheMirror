@@ -1,0 +1,8 @@
+com.example.maninthemirror.app-pngs-0 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\generated\res\pngs\debug
+com.example.maninthemirror.app-updated_navigation_xml-1 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\generated\updated_navigation_xml\debug
+com.example.maninthemirror.app-packageDebugResources-2 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.maninthemirror.app-packageDebugResources-3 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.maninthemirror.app-debug-4 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.maninthemirror.app-debug-5 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\src\debug\res
+com.example.maninthemirror.app-main-6 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\src\main\res
+gradleHome-0 C:\Users\munda\.gradle

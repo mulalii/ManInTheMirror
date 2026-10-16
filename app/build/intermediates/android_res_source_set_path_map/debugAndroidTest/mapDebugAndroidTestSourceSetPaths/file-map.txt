@@ -1,0 +1,5 @@
+com.example.maninthemirror.test.app-updated_navigation_xml-0 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\generated\updated_navigation_xml\debugAndroidTest
+com.example.maninthemirror.test.app-packageDebugAndroidTestResources-1 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\incremental\debugAndroidTest\packageDebugAndroidTestResources\merged.dir
+com.example.maninthemirror.test.app-packageDebugAndroidTestResources-2 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\incremental\debugAndroidTest\packageDebugAndroidTestResources\stripped.dir
+com.example.maninthemirror.test.app-debugAndroidTest-3 C:\Users\munda\AndroidStudioProjects\ManInTheMirror\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+gradleHome-0 C:\Users\munda\.gradle
