@@ -53,6 +53,7 @@ dependencies {
     // Supabase & Ktor Dependencies
     implementation(platform(libs.supabase.bom))
     implementation(libs.supabase.postgrest)
+    implementation(libs.supabase.realtime)
     implementation(libs.ktor.client.android)
     implementation(libs.kotlinx.serialization.json)
 

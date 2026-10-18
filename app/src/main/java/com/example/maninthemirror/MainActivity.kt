@@ -20,6 +20,9 @@ import com.example.maninthemirror.ui.screens.ContactList
 import com.example.maninthemirror.ui.screens.Conversation
 import com.example.maninthemirror.ui.screens.sampleContacts
 import com.example.maninthemirror.ui.theme.ManInTheMirrorTheme
+import io.github.jan.supabase.realtime.PostgresAction
+import io.github.jan.supabase.realtime.decodeRecord
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -36,34 +39,50 @@ class MainActivity : ComponentActivity() {
                     val contactsList = remember { mutableStateListOf<Contact>() }
                     val messagesList = remember { mutableStateListOf<Message>() }
 
-                    // Fetch contacts and messages from Supabase
+                    // Fetch initial contacts and messages from Supabase
                     LaunchedEffect(Unit) {
                         try {
                             val remoteContacts = repository.getContacts()
+                            contactsList.clear()
                             if (remoteContacts.isNotEmpty()) {
-                                contactsList.clear()
                                 contactsList.addAll(remoteContacts)
                             } else {
                                 contactsList.addAll(sampleContacts)
                             }
                         } catch (_: Exception) {
+                            contactsList.clear()
                             contactsList.addAll(sampleContacts)
                         }
 
                         try {
                             val remoteMessages = repository.getMessages()
+                            messagesList.clear()
                             if (remoteMessages.isNotEmpty()) {
-                                messagesList.clear()
                                 messagesList.addAll(remoteMessages)
                             } else {
                                 messagesList.addAll(SampleData.conversationSample)
                             }
                         } catch (_: Exception) {
+                            messagesList.clear()
                             messagesList.addAll(SampleData.conversationSample)
                         }
-                    }
-                    val currentMessages = messagesList.filter { it.contactId == selectedContact?.id }
 
+                        // Subscribe to real-time message inserts from Supabase
+                        try {
+                            repository.subscribeToMessages().collectLatest { action ->
+                                if (action is PostgresAction.Insert) {
+                                    val incomingMessage = action.decodeRecord<Message>()
+                                    if (messagesList.none { it.id != null && it.id == incomingMessage.id }) {
+                                        messagesList.add(incomingMessage)
+                                    }
+                                }
+                            }
+                        } catch (_: Exception) {
+                            // Supabase Realtime fallback
+                        }
+                    }
+
+                    val currentMessages = messagesList.filter { it.contactId == selectedContact?.id }
 
                     if (selectedContact == null) {
                         ContactList(
@@ -80,9 +99,8 @@ class MainActivity : ComponentActivity() {
                                 selectedContact = null
                             },
                             onSendMessage = { text ->
-
                                 val contactIdentity = selectedContact?.id ?: return@Conversation
-                                val newMessage = Message(contactId = contactIdentity,author = "Me", body = text)
+                                val newMessage = Message(contactId = contactIdentity, author = "Me", body = text)
                                 messagesList.add(newMessage)
                                 scope.launch {
                                     try {
